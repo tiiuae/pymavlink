@@ -384,7 +384,9 @@ ${{fields:
  */
 static inline ${return_type} mavlink_msg_${name_lower}_get_${name}(const mavlink_message_t* msg${get_arg})
 {
-    return _MAV_RETURN_${type}${array_tag}(msg, ${array_return_arg} ${wire_offset});
+    if (msg->len > ${wire_offset})
+        return _MAV_RETURN_${type}${array_tag}(msg, ${array_return_arg} ${wire_offset});
+    return (${return_type}) 0;
 }
 }}
 
